@@ -20,7 +20,8 @@ const handleError = (axiosError: any, response: Response) => {
 };
 
 const counter = new Counter({
-    name: 'http_requests_total',
+    key: 'demo_app_http_requests_total',
+    name: 'demo_app_http_requests_total',
     help: 'Total number of http requests',
     labelNames: ['method'],
 });
@@ -33,7 +34,8 @@ const getMetrics = async (request: Request, response: Response) => {
     try {
         loggerHelper.printRequest(request);
         response.set('Content-Type', register.contentType);
-        response.end(await register.getSingleMetricAsString('http_requests_total'));
+        //response.end(await register.getSingleMetricAsString('http_requests_total'));
+        response.send(register.metrics());
     } catch (err) {
         handleError(err, response);
     }
