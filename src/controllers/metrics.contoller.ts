@@ -44,8 +44,10 @@ const getMetrics = async (request: Request, response: Response) => {
     try {
         loggerHelper.printRequest(request);
         response.set('Content-Type', registry.contentType);
+       // response.send(await registry.metrics());
+        logger.info(`all: ${await registry.metrics()}`);
         response.send(await registry.metrics());
-        //response.end(await register.getSingleMetricAsString('http_requests_total'));
+        //response.end(await promClient.register.getSingleMetricAsString('demo_app_http_requests_total'));
         // logger.info(`Get metrics :  ${await promClient.register.getSingleMetricAsString('demo_app_http_requests_total')}`);
         // response.send(promClient.register.metrics());
     } catch (err) {
@@ -58,6 +60,7 @@ const calulate = async (request: Request, response: Response) => {
         loggerHelper.printRequest(request);
         const resultNumber = multiple(request.body.number1, request.body.number2);
         // counter.inc({ method: 'POST' })
+
         counter.inc();
         response.send(`Result is ${resultNumber}!\n`);
     } catch (err) {
@@ -65,7 +68,19 @@ const calulate = async (request: Request, response: Response) => {
     }
 };
 
+const registerMetrics = async (request: Request, response: Response) => {
+    try {
+        loggerHelper.printRequest(request);
+        registry.registerMetric(counter);
+        response.set('Content-Type', registry.contentType);
+        response.send(await registry.metrics());
+    } catch (err) {
+        handleError(err, response);
+    }
+};
+
 export default {
     getMetrics,
-    calulate
+    calulate,
+    registerMetrics
 }
