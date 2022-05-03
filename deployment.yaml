@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: hpa-demo-app
+ namespace: hpa-demo
+spec:
+ selector:
+   matchLabels:
+     run: hpa-demo-app
+ replicas: 1
+ template:
+   metadata:
+     labels:
+       run: hpa-demo-app
+   spec:
+     containers:
+     - name: hpa-demo-app
+       image: kwanhathai/demo-app:1.0.1
+       ports:
+       - containerPort: 3000
+       resources:
+         limits:
+           cpu: 500m
+         requests:
+           cpu: 200m
