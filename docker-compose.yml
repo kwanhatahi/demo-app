@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  demo-app:
+    build:
+      context: .
+      args:
+        docker_registry: ""
+      dockerfile: Dockerfile
+    ports:
+      - 23001:3001
+    volumes:
+      - 'demo_app_volume:/usr/project' 
+   
+volumes:
+  demo_app_volume:
