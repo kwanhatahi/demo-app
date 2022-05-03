@@ -7,7 +7,7 @@ services:
         docker_registry: ""
       dockerfile: Dockerfile
     ports:
-      - 23001:3001
+      - 23001:3000
     volumes:
       - 'demo_app_volume:/usr/project' 
    

@@ -32,7 +32,7 @@ RUN yarn run build
 #COPY ["src/sh", "$HOME/dist/sh/"]
 #COPY ["assets", "$HOME/dist/assets"]
 
-# expose port 3001
-EXPOSE 3001
+# expose port 3000
+EXPOSE 3000
 
 CMD ["node", "./dist/app.js"]
